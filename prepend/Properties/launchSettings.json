@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "prepend": {
+      "commandName": "Project",
+      "commandLineArgs": "--folder-path=\"\\\\192.168.0.30\\Media\\Television\\The Alien Anthology\\Season 00 [Disc Five- Making the Alien Anthology]\" --prepend-text=\"s02e### - \""
+    }
+  }
+}

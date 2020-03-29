@@ -3,3 +3,7 @@
 ################################################################################
 
 /.vs/prepend
+/prepend/bin/Debug/netcoreapp3.0
+/prepend/obj
+/rename/bin/Debug/netcoreapp3.0
+/rename/obj
