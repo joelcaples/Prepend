@@ -26,7 +26,7 @@ namespace Prepend
 
         private static void AddPrependText(string folderPath, string prependText, int fileNumber) {
 
-            foreach (var file in Directory.GetFiles(folderPath)) {
+            foreach (var file in Directory.GetFiles(Path.GetDirectoryName(folderPath), Path.GetFileName(folderPath))) {
 
                 fileNumber++;
                 var formattedPrependText = prependText.Clone().ToString();
