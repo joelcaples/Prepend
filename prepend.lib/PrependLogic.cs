@@ -12,7 +12,9 @@ namespace Prepend.Lib {
             _fileSystem = fileSystem;
         }
 
-        public void AddPrependText(string folderPath, string prependText, int fileNumber, ConfirmationPrompt confirmationPrompt) {
+        public void AddPrependText(string folderPath, string prependText, int fileNumberSeed, ConfirmationPrompt confirmationPrompt) {
+
+            var fileNumber = fileNumberSeed;
 
             foreach (var file in _fileSystem.Directory.GetFiles(_fileSystem.Path.GetDirectoryName(folderPath), _fileSystem.Path.GetFileName(folderPath))) {
 

@@ -2,9 +2,9 @@
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
 using Prepend.Interfaces;
+using Prepend.Tests.TestData;
 using System.Collections.Generic;
 using System.IO.Abstractions;
-using System.IO.Abstractions.TestingHelpers;
 
 namespace Prepend.Tests {
     class PrependConsoleTests {
@@ -54,13 +54,7 @@ namespace Prepend.Tests {
             A.CallTo(() => fakeConsole.WriteLine(A<string>._)).Invokes((string msg) => CaptureConsoleOutput(msg));
             A.CallTo(() => fakeConsole.ReadKey()).Returns(new System.ConsoleKeyInfo('y', System.ConsoleKey.Y, false, false, false));
 
-            var fakeFileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
-                { @"T:\TestFiles\file-01.txt", new MockFileData("file-01-Contents") },
-                { @"T:\TestFiles\file-02.doc", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) },
-                { @"T:\TestFiles\file-03.txt", new MockFileData("file-03-Contents") },
-                { @"T:\TestFiles\file-04.junk", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) },
-                { @"T:\TestFiles\file-05", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) },
-            });
+            var fakeFileSystem = new Fakes().BuildFakeFileSystemWithoutPrepend();
             var serviceCollection = new ServiceCollection()
                     .AddSingleton<IArgumentsLogic>(new ArgumentsLogic(args))
                     .AddSingleton<IConsole>(fakeConsole)
@@ -72,11 +66,7 @@ namespace Prepend.Tests {
             app.Run();
 
             // ASSERT
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\aaa100 - file-01.txt"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-02.doc"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\aaa101 - file-03.txt"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-04.junk"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-05"));
+            new Asserts().AssertFileSystemWithPrepend(fakeFileSystem);
         }
 
         [Test]
@@ -95,19 +85,11 @@ namespace Prepend.Tests {
                 @"--remove"
             };
 
-            //var fakeConsole = new FakeConsole();
-
             var fakeConsole = A.Fake<IConsole>();
             A.CallTo(() => fakeConsole.WriteLine(A<string>._)).Invokes((string msg) => CaptureConsoleOutput(msg));
             A.CallTo(() => fakeConsole.ReadKey()).Returns(new System.ConsoleKeyInfo('y', System.ConsoleKey.Y, false, false, false));
 
-            var fakeFileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
-                { @"T:\TestFiles\aaa100 - file-01.txt", new MockFileData(@"file-01-Contents") },
-                { @"T:\TestFiles\file-02.doc", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) },
-                { @"T:\TestFiles\aaa101 - file-03.txt", new MockFileData(@"file-03-Contents") },
-                { @"T:\TestFiles\file-04.junk", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) },
-                { @"T:\TestFiles\file-05", new MockFileData(new byte[] { 0x12, 0x34, 0x56, 0xd2 }) },
-            });
+            var fakeFileSystem = new Fakes().BuildFakeFileSystemWithPrepend();
 
             var serviceCollection = new ServiceCollection()
                     .AddSingleton<IArgumentsLogic>(new ArgumentsLogic(args))
@@ -120,11 +102,7 @@ namespace Prepend.Tests {
             app.Run();
 
             // ASSERT
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-01.txt"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-02.doc"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-03.txt"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-04.junk"));
-            Assert.IsTrue(fakeFileSystem.FileExists(@"T:\TestFiles\file-05"));
+            new Asserts().AssertFileSystemWithoutPrepend(fakeFileSystem);
         }
 
     }
