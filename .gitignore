@@ -10,3 +10,5 @@
 /prepend.tests/bin/Debug/netcoreapp3.0
 /prepend.tests/obj
 /TestResults
+/prepend/bin/Release/netcoreapp3.0
+/publish
