@@ -68,15 +68,34 @@ namespace Prepend {
 
         private void Usage() {
 
-            _console.WriteLine("Usage: Prepend [Command] --folder-path=<value> --prepend-text=<value>");
-            _console.WriteLine("");
-            _console.WriteLine("Commands");
-            _console.WriteLine("    --help                    Print help");
-            _console.WriteLine("    --remove                  Removes matching prepend-text");
-            _console.WriteLine("");
-            _console.WriteLine("Parameters");
-            _console.WriteLine("    --folder-path=<value>     Folder path/File pattern for affected files");
-            _console.WriteLine("    --prepend-text=<value>    Prepend text pattern");
+            _console.WriteLine(
+            $@"
+            Usage: prepend [Command] 
+                    --folder-path=<value> 
+                    --prepend-text=<value>
+                    --file-number-seed=<value>
+
+            Commands
+                --help                        Print help
+
+                --remove                      Removes matching prepend-text
+
+            Parameters
+                --folder-path=<value>         Folder path/File pattern for affected files
+
+                --prepend-text=<value>        Prepend text pattern
+
+                --file-number-seed=<value>    Will replace any instances of '#' in 
+                                                the filenmae with a number that is incremented 
+                                                for each file within the folder.
+
+                                              Default = 1
+
+
+            Examples:
+                prepend --folder-path=D:\Files\*.mkv --prepend-text=""s01e### - "" --file-number-seed=0
+                prepend --folder-path=D:\Files\*.mkv --prepend-text=""s01e### - "" --remove
+            ");
         }
     }
 }
