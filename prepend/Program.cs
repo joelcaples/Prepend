@@ -28,16 +28,17 @@ namespace Prepend
 
             foreach (var file in Directory.GetFiles(Path.GetDirectoryName(folderPath), Path.GetFileName(folderPath))) {
 
-                fileNumber++;
                 var formattedPrependText = prependText.Clone().ToString();
 
                 for (var i = 10; i > 0; --i) {
                     formattedPrependText = formattedPrependText.Replace(poundage(i), fileNumber.ToString().PadLeft(i, '0'));
                 }
+                fileNumber++;
 
                 var newFileName = Path.Combine(new DirectoryInfo(file).Parent.FullName, formattedPrependText + Path.GetFileName(file));
 
                 ShowRenameDialog(file, newFileName);
+
             }
         }
 
@@ -48,7 +49,7 @@ namespace Prepend
             }
 
             Regex reg = new Regex(prependText);
-            foreach (var file in Directory.GetFiles(folderPath, "*.*").Where(path => reg.IsMatch(path)).ToList()) {
+            foreach (var file in Directory.GetFiles(Path.GetDirectoryName(folderPath), Path.GetFileName(folderPath)).Where(path => reg.IsMatch(path)).ToList()) {
                 string newFileName = Path.Combine(new DirectoryInfo(file).Parent.FullName, Path.GetFileName(file).Substring(reg.Match(Path.GetFileName(file)).Length));
                 ShowRenameDialog(file, newFileName);
             }
@@ -78,7 +79,7 @@ namespace Prepend
 
             var prependText = args.FirstOrDefault(_ => _.ToLower().StartsWith("--file-number-seed="));
             if (prependText == null) {
-                return (0);
+                return (1);
             }
 
             if(int.TryParse(prependText.Substring("--file-number-seed=".Length), out var intTemp)) {
