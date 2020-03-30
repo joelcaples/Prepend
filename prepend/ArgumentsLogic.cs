@@ -10,6 +10,18 @@ namespace Prepend {
             _args = args;
         }
 
+        public CommandType Command {
+            get {
+                if (_args.ToList().Contains("--help")) {
+                    return CommandType.Usage;
+                } else if (_args.ToList().Contains("--remove")) {
+                    return CommandType.Remove;
+                } else {
+                    return CommandType.Prepend;
+                }
+            }
+        }
+
         public string FolderPath {
             get {
                 var folderPath = _args.FirstOrDefault(_ => _.ToLower().StartsWith("--folder-path="));

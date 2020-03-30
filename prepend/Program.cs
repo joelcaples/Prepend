@@ -14,11 +14,18 @@ namespace Prepend
                 var argLogic = new ArgumentsLogic(args);
                 var prependLogic = new PrependLogic();
                 
-                if (args.ToList().Contains("--remove")) {
-                    prependLogic.RemovePrependedText(argLogic.FolderPath, argLogic.PrependText, ShowRenameDialog);
-                } else {
-                    prependLogic.AddPrependText(argLogic.FolderPath, argLogic.PrependText, argLogic.FileNumberSeed, ShowRenameDialog);
+                switch(argLogic.Command) {
+                    case CommandType.Prepend:
+                        prependLogic.AddPrependText(argLogic.FolderPath, argLogic.PrependText, argLogic.FileNumberSeed, ShowRenameDialog);
+                        break;
+                    case CommandType.Remove:
+                        prependLogic.RemovePrependedText(argLogic.FolderPath, argLogic.PrependText, ShowRenameDialog);
+                        break;
+                    default:
+                        Usage();
+                        break;
                 }
+
             } catch (ArgumentException ex) {
                 Console.WriteLine(ex.Message);
                 Usage();
@@ -51,7 +58,15 @@ namespace Prepend
 
         private static void Usage() {
 
-            Console.WriteLine("Usage...");
+            Console.WriteLine("Usage: Prepend [Command] --folder-path=<value> --prepend-text=<value>");
+            Console.WriteLine("");
+            Console.WriteLine("Commands");
+            Console.WriteLine("    --help                    Print help");
+            Console.WriteLine("    --remove                  Removes matching prepend-text");
+            Console.WriteLine("");
+            Console.WriteLine("Parameters");
+            Console.WriteLine("    --folder-path=<value>     Folder path/File pattern for affected files");
+            Console.WriteLine("    --prepend-text=<value>    Prepend text pattern");
         }
     }
 }
