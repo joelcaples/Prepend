@@ -1,10 +1,9 @@
-using FakeItEasy;
 using NUnit.Framework;
 using System.Collections.Generic;
-using System.IO.Abstractions;
 using System.IO.Abstractions.TestingHelpers;
 
 namespace Prepend.Tests {
+
     public class PrependLogicTests {
 
         [SetUp]

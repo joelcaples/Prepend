@@ -5,12 +5,15 @@ using System.IO;
 using System.IO.Abstractions;
 
 namespace Prepend {
+
     public class PrependConsole {
 
         private IArgumentsLogic _argumentsLogic;
+        private IConsole _console;
 
         public PrependConsole(IServiceCollection serviceCollection) {
             _argumentsLogic = serviceCollection.BuildServiceProvider().GetRequiredService<IArgumentsLogic>();
+            _console = serviceCollection.BuildServiceProvider().GetRequiredService<IConsole>();
         }
 
         public void Run() {
@@ -31,46 +34,46 @@ namespace Prepend {
                 }
 
             } catch (ArgumentException ex) {
-                Console.WriteLine(ex.Message);
+                _console.WriteLine(ex.Message);
                 Usage();
             } catch (Exception ex) {
-                Console.WriteLine(ex.Message);
+                _console.WriteLine(ex.Message);
                 Usage();
             }
         }
 
-        public static bool ShowRenameDialog(string file, string newFileName) {
+        public bool ShowRenameDialog(string file, string newFileName) {
 
             var result = ' ';
 
             while (result != 'y' && result != 'n') {
 
-                Console.WriteLine($"Rename {Path.GetFileName(file)} to: ");
-                Console.WriteLine($"       {Path.GetFileName(newFileName)}?");
-                Console.WriteLine(string.Empty);
-                Console.WriteLine("Enter y or n");
+                _console.WriteLine($"Rename {Path.GetFileName(file)} to: ");
+                _console.WriteLine($"       {Path.GetFileName(newFileName)}?");
+                _console.WriteLine(string.Empty);
+                _console.WriteLine("Enter y or n");
 
-                result = Console.ReadKey().KeyChar;
+                result = _console.ReadKey().KeyChar;
                 if (result == 'y') {
                     return true;
                 }
 
-                Console.WriteLine(string.Empty);
+                _console.WriteLine(string.Empty);
             }
             return false;
         }
 
-        private static void Usage() {
+        private void Usage() {
 
-            Console.WriteLine("Usage: Prepend [Command] --folder-path=<value> --prepend-text=<value>");
-            Console.WriteLine("");
-            Console.WriteLine("Commands");
-            Console.WriteLine("    --help                    Print help");
-            Console.WriteLine("    --remove                  Removes matching prepend-text");
-            Console.WriteLine("");
-            Console.WriteLine("Parameters");
-            Console.WriteLine("    --folder-path=<value>     Folder path/File pattern for affected files");
-            Console.WriteLine("    --prepend-text=<value>    Prepend text pattern");
+            _console.WriteLine("Usage: Prepend [Command] --folder-path=<value> --prepend-text=<value>");
+            _console.WriteLine("");
+            _console.WriteLine("Commands");
+            _console.WriteLine("    --help                    Print help");
+            _console.WriteLine("    --remove                  Removes matching prepend-text");
+            _console.WriteLine("");
+            _console.WriteLine("Parameters");
+            _console.WriteLine("    --folder-path=<value>     Folder path/File pattern for affected files");
+            _console.WriteLine("    --prepend-text=<value>    Prepend text pattern");
         }
     }
 }

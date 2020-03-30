@@ -9,7 +9,8 @@ namespace Prepend {
         static void Main(string[] args) {
 
             var serviceCollection = new ServiceCollection()
-                    .AddSingleton<IArgumentsLogic>(new ArgumentsLogic(args));
+                    .AddSingleton<IArgumentsLogic>(new ArgumentsLogic(args))
+                    .AddSingleton<IConsole>(new ConsoleWrapper());
 
             var app = new PrependConsole(serviceCollection);
 
