@@ -7,7 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prepend", "prepend\prepend.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prepend.tests", "prepend.tests\prepend.tests.csproj", "{01B2BF07-4373-4A9D-BF08-7422C39D34EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prepend.lib", "prepend.lib\prepend.lib.csproj", "{F85F9250-0F03-4650-9FA4-BC28CE4C5468}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prepend.lib", "prepend.lib\prepend.lib.csproj", "{F85F9250-0F03-4650-9FA4-BC28CE4C5468}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{819D7A96-8602-4297-BEF6-00F580275B39}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE.txt = LICENSE.txt
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
