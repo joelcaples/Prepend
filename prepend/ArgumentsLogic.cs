@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Prepend.Interfaces;
+using System;
 using System.Linq;
 
 namespace Prepend {
 
-    public class ArgumentsLogic {
+    public class ArgumentsLogic : IArgumentsLogic {
 
         private readonly string[] _args;
         public ArgumentsLogic(string[] args) {

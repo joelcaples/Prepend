@@ -1,80 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Abstractions;
-using System.Linq;
-using System.Text.RegularExpressions;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Prepend.Interfaces;
+
 
 namespace Prepend {
+
     class Prepend {
+
         static void Main(string[] args) {
 
-            var app = new Application();
-            app.Run(args);
-    }
+            var serviceCollection = new ServiceCollection()
+                    .AddSingleton<IArgumentsLogic>(new ArgumentsLogic(args));
 
-    public class Application {
+            var app = new PrependConsole(serviceCollection);
 
-        public void Run(string[] args) {
-
-                try {
-                    var argLogic = new ArgumentsLogic(args);
-                    var prependLogic = new PrependLogic(new FileSystem());
-
-                    switch (argLogic.Command) {
-                        case CommandType.Prepend:
-                            prependLogic.AddPrependText(argLogic.GetFolderPath(), argLogic.GetPrependText(), argLogic.GetFileNumberSeed(), ShowRenameDialog);
-                            break;
-                        case CommandType.Remove:
-                            prependLogic.RemovePrependedText(argLogic.GetFolderPath(), argLogic.GetPrependText(), ShowRenameDialog);
-                            break;
-                        default:
-                            Usage();
-                            break;
-                    }
-
-                } catch (ArgumentException ex) {
-                    Console.WriteLine(ex.Message);
-                    Usage();
-                } catch (Exception ex) {
-                    Console.WriteLine(ex.Message);
-                    Usage();
-                }
-            }
-        }
-
-        public static bool ShowRenameDialog(string file, string newFileName) {
-
-            var result = ' ';
-
-            while (result != 'y' && result != 'n') {
-
-                Console.WriteLine($"Rename {Path.GetFileName(file)} to: ");
-                Console.WriteLine($"       {Path.GetFileName(newFileName)}?");
-                Console.WriteLine(string.Empty);
-                Console.WriteLine("Enter y or n");
-
-                result = Console.ReadKey().KeyChar;
-                if (result == 'y') {
-                    return true;
-                }
-
-                Console.WriteLine(string.Empty);
-            }
-            return false;
-        }
-
-        private static void Usage() {
-
-            Console.WriteLine("Usage: Prepend [Command] --folder-path=<value> --prepend-text=<value>");
-            Console.WriteLine("");
-            Console.WriteLine("Commands");
-            Console.WriteLine("    --help                    Print help");
-            Console.WriteLine("    --remove                  Removes matching prepend-text");
-            Console.WriteLine("");
-            Console.WriteLine("Parameters");
-            Console.WriteLine("    --folder-path=<value>     Folder path/File pattern for affected files");
-            Console.WriteLine("    --prepend-text=<value>    Prepend text pattern");
+            app.Run();
         }
     }
 }
