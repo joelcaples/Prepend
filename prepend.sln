@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29519.87
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prepend", "prepend\prepend.csproj", "{5557667D-B1A1-4B24-9C52-D82581ADBB02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prepend.tests", "prepend.tests\prepend.tests.csproj", "{01B2BF07-4373-4A9D-BF08-7422C39D34EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prepend.tests", "prepend.tests\prepend.tests.csproj", "{01B2BF07-4373-4A9D-BF08-7422C39D34EC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prepend.lib", "prepend.lib\prepend.lib.csproj", "{F85F9250-0F03-4650-9FA4-BC28CE4C5468}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{01B2BF07-4373-4A9D-BF08-7422C39D34EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01B2BF07-4373-4A9D-BF08-7422C39D34EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01B2BF07-4373-4A9D-BF08-7422C39D34EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F85F9250-0F03-4650-9FA4-BC28CE4C5468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F85F9250-0F03-4650-9FA4-BC28CE4C5468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F85F9250-0F03-4650-9FA4-BC28CE4C5468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F85F9250-0F03-4650-9FA4-BC28CE4C5468}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

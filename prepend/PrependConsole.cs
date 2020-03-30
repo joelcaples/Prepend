@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Prepend.Interfaces;
+using Prepend.Lib;
 using System;
 using System.IO;
 using System.IO.Abstractions;
@@ -8,9 +9,9 @@ namespace Prepend {
 
     public class PrependConsole {
 
-        private IArgumentsLogic _argumentsLogic;
-        private IConsole _console;
-        private IFileSystem _fileSystem;
+        private readonly IArgumentsLogic _argumentsLogic;
+        private readonly IConsole _console;
+        private readonly IFileSystem _fileSystem;
 
         public PrependConsole(IServiceCollection serviceCollection) {
             _argumentsLogic = serviceCollection.BuildServiceProvider().GetRequiredService<IArgumentsLogic>();

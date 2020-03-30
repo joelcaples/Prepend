@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\prepend.lib\prepend.lib.csproj" />
     <ProjectReference Include="..\prepend\prepend.csproj" />
   </ItemGroup>
 

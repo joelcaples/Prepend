@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Prepend {
+namespace Prepend.Lib {
     public class PrependLogic {
 
         public delegate bool ConfirmationPrompt(string file, string newFileName);
@@ -19,7 +19,7 @@ namespace Prepend {
                 var formattedPrependText = prependText.Clone().ToString();
 
                 for (var i = 10; i > 0; --i) {
-                    formattedPrependText = formattedPrependText.Replace(poundage(i), fileNumber.ToString().PadLeft(i, '0'));
+                    formattedPrependText = formattedPrependText.Replace(Poundage(i), fileNumber.ToString().PadLeft(i, '0'));
                 }
                 fileNumber++;
 
@@ -33,7 +33,7 @@ namespace Prepend {
         public void RemovePrependedText(string folderPath, string prependText, ConfirmationPrompt confirmationPrompt) {
 
             for (var i = 10; i > 0; --i) {
-                prependText = prependText.Replace(poundage(i), @"(\d)*");
+                prependText = prependText.Replace(Poundage(i), @"(\d)*");
             }
 
             Regex reg = new Regex(prependText);
@@ -45,7 +45,7 @@ namespace Prepend {
             }
         }
 
-        private static string poundage(int numChars) {
+        private static string Poundage(int numChars) {
 
             var retVal = string.Empty;
 

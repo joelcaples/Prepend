@@ -16,4 +16,8 @@
     <PackageReference Include="System.IO.Abstractions" Version="10.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\prepend.lib\prepend.lib.csproj" />
+  </ItemGroup>
+
 </Project>

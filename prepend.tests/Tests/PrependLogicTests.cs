@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using Prepend.Lib;
 using System.Collections.Generic;
 using System.IO.Abstractions.TestingHelpers;
 

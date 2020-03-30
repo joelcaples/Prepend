@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Prepend {
+namespace Prepend.Lib {
     public enum CommandType {
         Prepend,
         Remove,
