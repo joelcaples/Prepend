@@ -2,7 +2,7 @@
   "profiles": {
     "prepend": {
       "commandName": "Project",
-      "commandLineArgs": "--folder-path=\"\\\\192.168.0.30\\Media\\Lectures-Video\\Discrete Mathematics\\*.avi\" --prepend-text=\"s01e### - \" --file-number-seed=0"
+      "commandLineArgs": "--folder-path=\"D:\\temp\\PrependTestData\\*.txt\" --prepend-text=\"s01e### - \" --file-number-seed=1 --remove"
     }
   }
 }
