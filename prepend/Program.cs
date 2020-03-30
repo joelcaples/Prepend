@@ -17,10 +17,10 @@ namespace Prepend
                 
                 switch(argLogic.Command) {
                     case CommandType.Prepend:
-                        prependLogic.AddPrependText(argLogic.FolderPath, argLogic.PrependText, argLogic.FileNumberSeed, ShowRenameDialog);
+                        prependLogic.AddPrependText(argLogic.GetFolderPath(), argLogic.GetPrependText(), argLogic.GetFileNumberSeed(), ShowRenameDialog);
                         break;
                     case CommandType.Remove:
-                        prependLogic.RemovePrependedText(argLogic.FolderPath, argLogic.PrependText, ShowRenameDialog);
+                        prependLogic.RemovePrependedText(argLogic.GetFolderPath(), argLogic.GetPrependText(), ShowRenameDialog);
                         break;
                     default:
                         Usage();
