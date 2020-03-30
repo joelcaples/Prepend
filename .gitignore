@@ -7,3 +7,5 @@
 /prepend/obj
 /rename/bin/Debug/netcoreapp3.0
 /rename/obj
+/prepend.tests/bin/Debug/netcoreapp3.0
+/prepend.tests/obj

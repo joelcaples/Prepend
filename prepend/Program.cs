@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -12,7 +13,7 @@ namespace Prepend
 
             try {
                 var argLogic = new ArgumentsLogic(args);
-                var prependLogic = new PrependLogic();
+                var prependLogic = new PrependLogic(new FileSystem());
                 
                 switch(argLogic.Command) {
                     case CommandType.Prepend:
@@ -36,7 +37,7 @@ namespace Prepend
         }
 
 
-        public static void ShowRenameDialog(string file, string newFileName) {
+        public static bool ShowRenameDialog(string file, string newFileName) {
 
             var result = ' ';
 
@@ -49,11 +50,12 @@ namespace Prepend
 
                 result = Console.ReadKey().KeyChar;
                 if (result == 'y') {
-                    File.Move(file, newFileName);
+                    return true;
                 }
 
                 Console.WriteLine(string.Empty);
             }
+            return false;
         }
 
         private static void Usage() {

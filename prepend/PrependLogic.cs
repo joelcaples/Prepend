@@ -1,15 +1,20 @@
-﻿using System.IO;
+﻿using System.IO.Abstractions;
 using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Prepend {
     public class PrependLogic {
 
-        public delegate void ConfirmationPrompt(string file, string newFileName);
+        public delegate bool ConfirmationPrompt(string file, string newFileName);
+
+        private readonly IFileSystem _fileSystem;
+        public PrependLogic(IFileSystem fileSystem) {
+            _fileSystem = fileSystem;
+        }
 
         public void AddPrependText(string folderPath, string prependText, int fileNumber, ConfirmationPrompt confirmationPrompt) {
 
-            foreach (var file in Directory.GetFiles(Path.GetDirectoryName(folderPath), Path.GetFileName(folderPath))) {
+            foreach (var file in _fileSystem.Directory.GetFiles(_fileSystem.Path.GetDirectoryName(folderPath), _fileSystem.Path.GetFileName(folderPath))) {
 
                 var formattedPrependText = prependText.Clone().ToString();
 
@@ -18,10 +23,10 @@ namespace Prepend {
                 }
                 fileNumber++;
 
-                var newFileName = Path.Combine(new DirectoryInfo(file).Parent.FullName, formattedPrependText + Path.GetFileName(file));
+                var newFileName = _fileSystem.Path.Combine(new System.IO.DirectoryInfo(file).Parent.FullName, formattedPrependText + _fileSystem.Path.GetFileName(file));
 
-                confirmationPrompt(file, newFileName);
-
+                if(confirmationPrompt(file, newFileName))
+                    _fileSystem.File.Move(file, newFileName);
             }
         }
 
@@ -32,8 +37,8 @@ namespace Prepend {
             }
 
             Regex reg = new Regex(prependText);
-            foreach (var file in Directory.GetFiles(Path.GetDirectoryName(folderPath), Path.GetFileName(folderPath)).Where(path => reg.IsMatch(path)).ToList()) {
-                string newFileName = Path.Combine(new DirectoryInfo(file).Parent.FullName, Path.GetFileName(file).Substring(reg.Match(Path.GetFileName(file)).Length));
+            foreach (var file in _fileSystem.Directory.GetFiles(_fileSystem.Path.GetDirectoryName(folderPath), _fileSystem.Path.GetFileName(folderPath)).Where(path => reg.IsMatch(path)).ToList()) {
+                string newFileName = _fileSystem.Path.Combine(new System.IO.DirectoryInfo(file).Parent.FullName, _fileSystem.Path.GetFileName(file).Substring(reg.Match(_fileSystem.Path.GetFileName(file)).Length));
                 confirmationPrompt(file, newFileName);
             }
         }
