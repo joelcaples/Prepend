@@ -5,37 +5,43 @@ using System.IO.Abstractions;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Prepend
-{
-    class Prepend
-    {
+namespace Prepend {
+    class Prepend {
         static void Main(string[] args) {
 
-            try {
-                var argLogic = new ArgumentsLogic(args);
-                var prependLogic = new PrependLogic(new FileSystem());
-                
-                switch(argLogic.Command) {
-                    case CommandType.Prepend:
-                        prependLogic.AddPrependText(argLogic.GetFolderPath(), argLogic.GetPrependText(), argLogic.GetFileNumberSeed(), ShowRenameDialog);
-                        break;
-                    case CommandType.Remove:
-                        prependLogic.RemovePrependedText(argLogic.GetFolderPath(), argLogic.GetPrependText(), ShowRenameDialog);
-                        break;
-                    default:
-                        Usage();
-                        break;
-                }
+            var app = new Application();
+            app.Run(args);
+    }
 
-            } catch (ArgumentException ex) {
-                Console.WriteLine(ex.Message);
-                Usage();
-            } catch (Exception ex) {
-                Console.WriteLine(ex.Message);
-                Usage();
+    public class Application {
+
+        public void Run(string[] args) {
+
+                try {
+                    var argLogic = new ArgumentsLogic(args);
+                    var prependLogic = new PrependLogic(new FileSystem());
+
+                    switch (argLogic.Command) {
+                        case CommandType.Prepend:
+                            prependLogic.AddPrependText(argLogic.GetFolderPath(), argLogic.GetPrependText(), argLogic.GetFileNumberSeed(), ShowRenameDialog);
+                            break;
+                        case CommandType.Remove:
+                            prependLogic.RemovePrependedText(argLogic.GetFolderPath(), argLogic.GetPrependText(), ShowRenameDialog);
+                            break;
+                        default:
+                            Usage();
+                            break;
+                    }
+
+                } catch (ArgumentException ex) {
+                    Console.WriteLine(ex.Message);
+                    Usage();
+                } catch (Exception ex) {
+                    Console.WriteLine(ex.Message);
+                    Usage();
+                }
             }
         }
-
 
         public static bool ShowRenameDialog(string file, string newFileName) {
 

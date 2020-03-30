@@ -23,7 +23,7 @@ namespace Prepend {
                 }
                 fileNumber++;
 
-                var newFileName = _fileSystem.Path.Combine(new System.IO.DirectoryInfo(file).Parent.FullName, formattedPrependText + _fileSystem.Path.GetFileName(file));
+                var newFileName = _fileSystem.Path.Combine(_fileSystem.DirectoryInfo.FromDirectoryName(file).Parent.FullName, formattedPrependText + _fileSystem.Path.GetFileName(file));
 
                 if(confirmationPrompt(file, newFileName))
                     _fileSystem.File.Move(file, newFileName);
@@ -38,8 +38,10 @@ namespace Prepend {
 
             Regex reg = new Regex(prependText);
             foreach (var file in _fileSystem.Directory.GetFiles(_fileSystem.Path.GetDirectoryName(folderPath), _fileSystem.Path.GetFileName(folderPath)).Where(path => reg.IsMatch(path)).ToList()) {
-                string newFileName = _fileSystem.Path.Combine(new System.IO.DirectoryInfo(file).Parent.FullName, _fileSystem.Path.GetFileName(file).Substring(reg.Match(_fileSystem.Path.GetFileName(file)).Length));
-                confirmationPrompt(file, newFileName);
+                string newFileName = _fileSystem.Path.Combine(_fileSystem.DirectoryInfo.FromDirectoryName(file).Parent.FullName, _fileSystem.Path.GetFileName(file).Substring(reg.Match(_fileSystem.Path.GetFileName(file)).Length));
+                if(confirmationPrompt(file, newFileName)) {
+                    _fileSystem.File.Move(file, newFileName);
+                }
             }
         }
 
