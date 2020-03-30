@@ -4,6 +4,11 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <RootNamespace>Prepend</RootNamespace>
+    <Description>MIT License</Description>
+    <PackageProjectUrl>https://github.com/joelcaples/Prepend</PackageProjectUrl>
+    <Company>Angry Lemonade Productions</Company>
+    <Authors>Joel Caples</Authors>
+    <Copyright>2020</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
