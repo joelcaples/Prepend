@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Prepend.Interfaces;
-
+using System.IO.Abstractions;
 
 namespace Prepend {
 
@@ -10,7 +10,8 @@ namespace Prepend {
 
             var serviceCollection = new ServiceCollection()
                     .AddSingleton<IArgumentsLogic>(new ArgumentsLogic(args))
-                    .AddSingleton<IConsole>(new ConsoleWrapper());
+                    .AddSingleton<IConsole>(new ConsoleWrapper())
+                    .AddSingleton<IFileSystem>(new FileSystem());
 
             var app = new PrependConsole(serviceCollection);
 

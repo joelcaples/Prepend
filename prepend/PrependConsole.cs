@@ -10,16 +10,18 @@ namespace Prepend {
 
         private IArgumentsLogic _argumentsLogic;
         private IConsole _console;
+        private IFileSystem _fileSystem;
 
         public PrependConsole(IServiceCollection serviceCollection) {
             _argumentsLogic = serviceCollection.BuildServiceProvider().GetRequiredService<IArgumentsLogic>();
             _console = serviceCollection.BuildServiceProvider().GetRequiredService<IConsole>();
+            _fileSystem = serviceCollection.BuildServiceProvider().GetRequiredService<IFileSystem>();
         }
 
         public void Run() {
 
             try {
-                var prependLogic = new PrependLogic(new FileSystem());
+                var prependLogic = new PrependLogic(_fileSystem);
 
                 switch (_argumentsLogic.Command) {
                     case CommandType.Prepend:
